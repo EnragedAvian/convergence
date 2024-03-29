@@ -1,0 +1,445 @@
+/* Defining global variables */
+:root {
+    /* variable used for gradient for blurred header image background */
+    --blurGradient: linear-gradient(to top, transparent 20px, white 50%);
+    --primaryBorderRadius: 20px;
+    --bodyWidth: 900px;
+    --bodyMargin: 60px;
+    --minBodyMargin: 20px;
+    --maxThumbWidth: 1024px;
+}
+
+/* Defining breakpoints */
+
+/* Extra small size (mobile devices) */
+@media screen and (max-width: 479px) {
+    :root {
+        --bodyMargin: 20px !important;
+        --minBodyMargin: 10px !important;
+        --primaryBorderRadius: 12px;
+
+    }
+
+    article {
+        min-width: calc(300px - 2 * var(--bodyMargin) - 2 * var(--minBodyMargin)) !important;
+        margin-left: var(--minBodyMargin) !important;
+        margin-right: var(--minBodyMargin) !important;
+    }
+
+    .header {
+        min-width: 300px;
+    }
+
+    .headerText p {
+        right: -6px !important;
+    }
+}
+
+/* Special formatting for smaller screen sizes */
+@media screen and (max-width: 768px) {
+    :root {
+        --bodyMargin: 40px;
+    }
+
+    .imgGrid {
+        row-gap: 5px !important;
+        column-gap: 5px !important;
+    }
+
+    .headerText h1 {
+        font-size: 2.5em !important;
+    }
+
+    article {
+        padding-top: 0px !important;
+    }
+}
+
+/* Small size (Large mobile devices and small tablets) 
+    - Specifically removing border radius around header image
+*/
+@media screen and (max-width: 1023px) {
+    .header img.thumb {
+        border-radius: 0px !important;
+    }
+
+    .header .headerText {
+        width: calc(100% - 2 * var(--minBodyMargin)) !important;
+    }
+
+    article {
+        width: calc(100% - 2 * var(--bodyMargin) - 2 * var(--minBodyMargin)) !important;
+    }
+
+}
+
+/* Defining parameters for header photo and text */
+.header {
+    width: 100%;
+    padding-top: 80px; /* add padding to account for navbar */
+    position: relative;
+    padding-bottom: 100px;
+    z-index: 1;
+
+    /* Thumbnail image/primary image styling */
+    & img.thumb {
+        border-radius: var(--primaryBorderRadius);
+        max-width: 1024px;
+        width: 100%;
+        display: block;
+        margin: auto; /* center in div */
+        /* Photo formatting to ensure aspect ratio and image fitment */
+        aspect-ratio: 5 / 3;
+        justify-self: center;
+        object-fit: cover;
+        z-index: 3;
+        /* standard background shadow */
+        filter: drop-shadow(0px 4px 8px rgba(0,0,0,.25));
+        position: relative; /* required to ensure this is drawn on top of background */
+    }
+
+    .headerText {
+        position: relative; /* required to ensure drawn on top of background */
+        margin: auto;
+        background-color: white;
+        margin-top: -40px; /* Allow to overlap over thumbnail image */
+        padding-top: 20px;
+        padding-bottom: 30px;
+        z-index: 4;
+        max-width: var(--bodyWidth);
+        border-radius: var(--primaryBorderRadius);
+        filter: drop-shadow(0px 4px 8px rgba(0,0,0,.25));
+
+        /* Formatting for Title */
+        & h1 {
+            margin-left: var(--bodyMargin);
+            margin-right: var(--bodyMargin);
+            text-transform: uppercase; /* ensures title is always shown in caps */
+            font-size: 4em;
+        }
+
+        /* Formatting for subtitle */
+        & h3 {
+            margin-left: var(--bodyMargin);
+            margin-right: var(--bodyMargin);
+            font-family: 'KlavikaWebBasic';
+            font-weight: normal;
+        }
+
+        /* Formatting for date */
+        & p {
+            font-style: italic;
+            margin-left: 20px;
+            margin-top: 8px;
+            padding: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            right: -10px; /* ensure slight overlap to the right */
+            border-radius: calc(var(--primaryBorderRadius) / 2); /* Keeps border radius proportional to global values */
+            position: absolute;
+            color: white;
+            background-color: black;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,.25));
+        }
+    }
+
+    /* Card used to blur background image */
+    .blurCard {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        z-index: 1;
+        position: absolute;
+        background-color: transparent;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* Card used to apply a transparent overlay to background to lighten/darken depending on theme */
+    .overlayCard {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        z-index: 2;
+        position: absolute;
+        background-image: var(--blurGradient);
+        opacity: 20%;
+    }
+
+    /* Background image used for blur effect */
+    & .headerBackground {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        z-index: 0;
+        background-size: cover;
+        background-position: center;
+        /* Mask image using blur gradient to ensure it fades off towards the bottom */
+        -webkit-mask-image: var(--blurGradient);
+        mask-image: var(--blurGradient);
+    }
+}
+
+
+/* Formatting for primary article */
+article {
+    z-index: 2; /* ensures it gets drawn above the header background */
+    background-color: white;
+    max-width: calc(var(--bodyWidth) - 2 * var(--bodyMargin)); /* ensures content is spaced enough by margin */
+    width: 100%;
+    margin: auto;
+    position: relative;
+    margin-top: -50px;
+    padding: var(--bodyMargin); /* Technically padding, but effectively used as a margin to properly affect all nested items */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: var(--primaryBorderRadius);
+    filter: drop-shadow(0px 4px 8px rgba(0,0,0,.25));
+
+    /* Setting body font and spacing between paragraphs*/
+    & p {
+        font-family: 'KlavikaWebBasic';
+        padding-bottom: 1em;
+    }
+
+    & h1 {
+        font-size: 2em;
+    }
+
+    /* Add extra breathing room around all headers */
+    & h1, h2, h3, h4, h5, h6 {
+        padding-top: 0.5em;
+        padding-bottom: 0.2em;
+    }
+
+    /* Indent ordered list by 2em */
+    & ol {
+        margin-left: 2em;
+        font-family: 'KlavikaWebBasic';
+    }
+
+    /* Provide proper spacing for list items */
+    & li {
+        margin-top: .5em;
+        margin-bottom: .5em;
+    }
+
+    /* Create gray bar at the side of block quotes */
+    & blockQuote {
+        font-family: 'KlavikaWebBasic';
+        padding-left: calc(1em - 2px);
+        border-left: solid;
+        border-width: 2px;
+        border-color: gray;
+        color: gray;
+        margin-top: 1em;
+        margin-bottom: 1em;
+
+        /* ensure first and last have proper padding to give more space for side line */
+        & p:first-child {
+            padding-top: .5em;
+        }
+        & p:last-child {
+            padding-bottom: .5em;
+        }
+
+    }
+
+    /* Global parameters for all figures */
+    & figure {
+        position: relative;
+        margin-top: 1em;
+        margin-bottom: 2em;
+        /* allow figure to stretch slightly outside the text area */
+        margin-left: calc(var(--minBodyMargin) - var(--bodyMargin)); 
+        margin-right: calc(var(--minBodyMargin) - var(--bodyMargin));
+
+        /* Formatting for a single image within a figure */
+        & img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: calc(var(--bodyWidth) / 4 * 3); /* ensures vertical images don't stretch too high */
+            margin: auto;
+            display: block;
+            aspect-ratio: initial; /* preserve aspect ratio */
+            border-radius: calc(var(--primaryBorderRadius) / 2);
+        }
+
+        & figcaption {
+            font-family: 'KlavikaWebBasic';
+            margin-top: 1em;
+            font-size: 0.8em;
+            margin-left: calc(var(--bodyMargin) - var(--minBodyMargin)); /* offset by same amount figure stretches out by plus 1 em */
+            margin-right: calc(var(--minBodyMargin) - var(--bodyMargin));
+            color: gray;
+        }
+    }
+
+    /* Defining properties for vimeo frame */
+    & iframe {
+        position: relative;
+        display: block;
+        width: 100%;
+        border-radius: calc(var(--primaryBorderRadius) / 2);
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+
+    .imgGrid {
+        display: grid;
+        grid-template-rows: repeat(6, 1fr);
+        grid-template-columns: repeat(6, 1fr);
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        /*justify-items: stretch;
+        align-items: stretch;*/
+        column-gap: 10px;
+        row-gap: 10px;
+
+        & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s;
+        }
+
+        /* Adjusting layout of grid based on number of items (n <= 5) */
+
+        /* Formatting for 1 item */
+        & img:only-child {
+            grid-column: span 6;
+            grid-row: span 6;
+            
+        }
+
+
+        /* Formatting for 2 items */
+        & img:first-child:nth-last-child(2), img:first-child:nth-last-child(2) ~ img {
+            grid-column: span 3;
+            grid-row: span 6;
+        }
+
+
+        /* Formatting for 3 items */
+        & img:first-child:nth-last-child(3) {
+            grid-column: span 4;
+            grid-row: span 6;
+        }
+        & img:first-child:nth-last-child(3) ~ img {
+            grid-column: span 2;
+            grid-row: span 3;
+        }
+
+
+        /* Formatting for 4 items */
+        & img:first-child:nth-last-child(4) {
+            grid-column: span 4;
+            grid-row: span 6;
+        }
+        & img:first-child:nth-last-child(4) ~ img {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+
+        /* Formatting for 5 items */
+        & img:first-child:nth-last-child(5) {
+            grid-column: span 4;
+            grid-row: span 4;
+        }
+        & img:first-child:nth-last-child(5) ~ img:nth-child(n + 2):nth-child(-n + 3) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        & img:first-child:nth-last-child(5) ~ img:nth-child(n + 4):nth-child(-n + 5) {
+            grid-column: span 3;
+            grid-row: span 2;
+        }
+
+
+        /* Formatting for 6 items */
+        & img:first-child:nth-last-child(6) {
+            grid-column: span 4;
+            grid-row: span 4;
+        }
+        & img:first-child:nth-last-child(6) ~ img:nth-child(n + 2) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+
+        & img:hover {
+            transform: scale(1.02);
+        }
+    }
+}
+
+
+/*Image modal*/
+
+.modal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    margin-top: -1px;
+    animation: fadeIn 0.3s;
+    z-index: 20;
+
+    .wrapper {
+        max-width: 90%;
+        max-height: 90%;
+
+        .close {
+            display: flex;
+            position: relative;
+            left: calc(100% - 20px);
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            color: black;
+            display: flex;
+            z-index: 100;
+            border-radius: 15px;
+            font-style: normal;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,.25));
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .close::before {
+            content:"\2715"
+        }
+
+        & img {
+            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
+            display: flex;
+            margin: auto;
+            border-radius: var(--primaryBorderRadius);
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,.25));
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

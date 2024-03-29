@@ -1,0 +1,222 @@
+/*
+Theme Name: Convergence
+*/
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /*min-height: 100vh;*/
+    background-image: linear-gradient(rgb(163, 210, 235), rgb(188, 137, 225));
+}
+
+/* Setting base fonts for headers and paragraph elements */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'DIN2014WebBold';
+}
+
+p {
+    font-family: 'KlavikaWebBasic';
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation Formatting */
+#navbar {
+    height: 64px;
+    align-items: center;
+    width:100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    /*background:rgb(207, 203, 203);*/
+    z-index: 10;
+    background-image: linear-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.329) 50%, rgba(255, 255, 255, 0.137) 70%, rgba(255, 255, 255, 0));
+    transition: top 0.3s;
+}
+
+#hamburgerButton {
+    position: absolute;
+    display: flex;
+    font-size: 2.5em;
+    height: 38px;
+    width: 38px;
+    right: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,.25));
+    margin-right: 22px;
+    top: 22px;
+    /*font-family: "DIN2014WebBold";*/
+    visibility: hidden;
+    z-index: 2;
+    cursor: pointer;
+
+    & a {
+        text-decoration: none;
+        margin-top: -6px;
+        text-align: center;
+        width: 38px;
+        transition: background 0.2s, color 0.2s, transform 0.2s;
+
+        
+    }
+    & a:hover {
+        transform: translateY(0) !important;
+    }
+
+}
+
+
+#navLinks {
+    position: absolute;
+    height: 50px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-right: 12px;
+    top: 16px;
+    z-index: 2;
+    transition: visibility 0.3s, opacity 0.3s;
+
+    & a {
+        font-family: "DIN2014WebBold";
+        text-decoration: none;
+        font-size: 24;
+        padding-top: 10px;
+        padding-bottom: 8px;
+        padding-left: 16px;
+        padding-right: 16px;
+        margin-left: 10px;
+        margin-right: 10px;
+        border-radius: 8px;
+        filter: drop-shadow(0px 2px 4px rgba(0,0,0,.25));
+        transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+}
+
+
+a.inactive {
+    background: white;
+    color: black;
+}
+
+a.inactive:hover {
+    background: rgb(245, 245, 245);
+    transform: scale(1.05);
+}
+
+a.active {
+    background: black;
+    color: white;
+}
+
+a.active:hover {
+    transform: scale(1.05);
+}
+
+a.disabled {
+    background: rgb(194, 194, 194);
+    color: rgb(89, 87, 87);
+}
+
+#logo {
+    position: absolute;
+    display: flex;
+    align-content: center;
+    height: 50px;
+    margin-left: 20px;
+    margin-right: 80px;
+    top: 16px;
+    align-items: center;
+    z-index: 3;
+    & img {
+        max-width: 100%;
+        max-height: 50px;
+        aspect-ratio: auto;
+        filter: drop-shadow(0px 2px 4px rgba(0,0,0,.25));
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #navLinks {
+        visibility: hidden;
+        opacity: 0%;
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        background-color: rgba(255, 255, 255, 0.1);
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-color: rgba(95, 95, 95, 0.392);
+        width: 100%;
+        height: auto;
+        left: 0;
+        top: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-top: 70px;
+        padding-right: 12px;
+        box-sizing: border-box;
+
+        & a {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+    }
+
+    #hamburgerButton {
+        visibility: visible;
+    }
+}
+
+/* Footer Formatting */
+.footer {
+    background-image: linear-gradient(rgba(255, 255, 255, 0), 40%, rgb(255, 255, 255));
+    padding-top: 20px;
+    margin-top: auto;
+    width: 100%;
+}
+
+.footer p {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    & a {
+        color: black;
+    }
+}
+
+.footer .icons {
+    display: flex;
+    text-decoration: none;
+    list-style-type: none;
+    justify-content: center;
+    background-color: black;
+    filter: drop-shadow(0px 4px 8px rgba(0,0,0,.25));
+    width: 150px;
+    margin: auto;
+    padding: 10px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.footer > .icons > a {
+    margin-left: 10px;
+    margin-right: 10px;
+    & img {
+        height: 32px;
+    }
+}

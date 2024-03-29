@@ -1,0 +1,282 @@
+/* Defining global variables used for card dimensions*/
+:root {
+    --cardRadius: 16px;
+    --cardPhotoHeight: 300px;
+    --cardOffset: 16px;
+    --cardWidth: 400px;
+    --translucentColor: rgba(255, 255, 255, 0.2);
+}
+
+/* Defining breakpoints */
+
+/* Extra small size (mobile devices) */
+@media screen and (min-width: 300px) {
+    .mainGrid {
+        width: 100%;
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* Small size (Large mobile devices and small tablets) */
+@media screen and (min-width: 480px) {
+    .mainGrid {
+        width: 100%;
+        grid-template-columns: repeat(1, 1fr);
+        max-width: 768px;
+    }
+}
+
+/* Medium size (Large tablets and Laptops) */
+@media screen and (min-width: 1024px) {
+    .mainGrid {
+        width: 854px;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 854px;
+    }
+}
+
+/* Large size (Desktops) */
+@media screen and (min-width: 1300px) {
+    .mainGrid {
+        width: 1280px;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1280px;
+    }
+}
+
+/* Adding breakpoint to reduce image height in entries to better fit content on screen for smaller screens */
+@media screen and (max-width: 480px) {
+    :root {
+        --cardPhotoHeight: 240px;
+        --cardOffset: 12px;
+        --cardRadius: 12px;
+    }
+
+    .header > .headerContent > .sectionTitle > h1 {
+        font-size: 2em !important;
+    }
+}
+
+/* Defining header div which contains section title and subtitle */
+.header {
+    min-width: 220px; /* defining min width for incredibly small windows/devices */
+    grid-column: 1 / -1; /* Spans the entire row */
+    width: calc(100% - 40px + var(--cardOffset));
+    justify-self: center;
+    display: flex;
+    position: relative;
+    filter: drop-shadow(0px 4px 8px rgba(0,0,0,.25));
+
+    /* Defining  placement of text items */
+    .headerContent {
+        width: calc(100% - var(--cardOffset)); 
+        margin-bottom: var(--card);
+        z-index: 1;
+
+        /* Defining background for the upper of the two cards */
+        .sectionTitle {
+            margin-top: 0;
+            top: 0;
+            background-color: white;
+            border-radius: var(--cardRadius);
+            width: 100%;
+            display: flex;
+
+            /* Defining text treatment including background image */
+            & h1 {
+                margin: 0;
+                font-size: 4em;
+                margin-top: calc(2 * var(--cardOffset));
+                margin-left: var(--cardOffset);
+                padding: var(--cardOffset);
+                padding-inline: calc(2 * var(--cardOffset));
+                width: 100%;
+                color: white;
+                background-size: cover; /* Allow background image to completely cover blurred layer*/
+                background-position: center center; /* Ensure position is centered properly */
+                border-top-left-radius: var(--cardRadius);
+                border-bottom-right-radius: var(--cardRadius);
+                text-transform: uppercase;
+            }
+        }
+
+        /* Defining body content */
+        & p {
+            margin: var(--cardOffset);
+            margin-left: calc(3 * var(--cardOffset));
+            margin-right: calc(2 * var(--cardOffset));
+        
+        }
+
+    }
+
+    /* Defining bottom card which covers the subheader text */
+    .bottomCard {
+        background-color: white;
+        border-radius: var(--cardRadius);
+        position: absolute;
+        height: calc(100% - 2 * var(--cardOffset));
+        width: calc(100% - var(--cardOffset));
+        bottom: 0;
+        right: 0;
+        z-index: 0;
+    }
+    
+}
+
+
+/* Creating grid used for displaying elements. Need to properly incorporate margins and resizing for different browsers ultimately */
+.mainGrid {
+    display: inline-grid;
+    margin: auto;
+    margin-top: 100px;
+    row-gap: 50px; /* defining spacing between rows */
+}
+
+
+/* Defining project Entry element, which styles each project card 
+    - Each card follows the same formatting, except for the first element, which shows as double-wide if possible
+    - Card width can vary based on browser window size, defined using breakpoints
+*/
+
+.gridEntry {
+    width: var(--cardWidth);
+    display: flex;
+    position: relative;
+    top: 0px; /*ensures no margin at the top of each entry */
+    transition: top 0.2s; /* add animation when hovering*/
+    color: black; /* Text formatting */
+    text-decoration: none;
+    justify-self: center; /* Aligning content in the center of a frame */
+
+    /* Adding animation when hovering over an entry */
+    &:hover {
+        top: 2px;
+    }
+
+    /* Defining parameters for background card material */
+    .entryCard {
+        width: calc(100% - var(--cardOffset));
+        height: calc(100% - var(--cardOffset));
+        position: absolute;
+        right: 0; /* pinning to bottom right corner */
+        bottom: 0;
+        background-color: white;
+        border-radius: var(--cardRadius);
+        filter: drop-shadow(0px 4px 8px rgba(0,0,0,.25));
+        z-index: 0; /* card drawn at bottom layer of everything */
+    }
+
+    /* Defining image used to create outer edge blur effect */
+    .entryImage {
+        width: calc(100% - var(--cardOffset));
+        height: var(--cardPhotoHeight);
+        border-radius: var(--cardRadius);
+        position: absolute;
+        background-size: cover; /* Allow background image to completely cover blurred layer*/
+        background-position: center center; /* Ensure position is centered properly */
+        z-index: 1; /* establishing index of 1, being drawn only above the card material */
+
+        /* Defining translucent material which covers the image */
+        .translucentLayer {
+            background-color: var(--translucentColor);
+            border-radius: var(--cardRadius);
+            width: 100%;
+            height: 100%;
+            position: absolute; /* ensures layer isn't moved by other items in the div */
+            z-index: 2; /* drawn above the image to be blurred, but behind the clear image */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px); /* using webkit notation to ensure compatability in safari */
+        }
+
+        & img {
+            width: calc(100% - var(--cardOffset)); /* offsetting width and height */
+            height: calc(var(--cardPhotoHeight) - var(--cardOffset));
+            border-top-left-radius: var(--cardRadius);
+            border-bottom-right-radius: var(--cardRadius);
+            right: 0; /* pinning to bottom right corner of container */
+            bottom: 0;
+            position: absolute;
+            object-fit: cover;
+            z-index: 3;
+        }
+    }
+
+}
+
+.projectText {
+    z-index: 4; /* ensure text gets drawn over top of everything */
+    margin-top: var(--cardPhotoHeight); /* offset text by the photo height */
+    margin-left: var(--cardOffset); /* offset by the same amount as the card */
+    width: 100%;
+}
+
+/* Defining header text information */
+.projectText > h3 {
+    margin: 12px;
+    font-size: 2em;
+    margin-left: var(--cardOffset);
+    margin-right: var(--cardOffset);
+    font-family: "DIN2014WebBold";
+    display: -webkit-box; /* creating webkit box to properly clamp text after three lines */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-transform: uppercase;
+}
+
+.projectText > p {
+    margin-top: -8px; /* Reducing spacing between body text and project title */
+    margin-left: var(--cardOffset);
+    margin-right: var(--cardOffset);
+    margin-bottom: var(--cardOffset);
+    font-family: 'KlavikaWebBasic';
+    color: rgba(0,0,0,.5);
+    display: -webkit-box; /* creating webkit box to properly clamp text after three lines */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+/* Defining custom parameters for double-width entries */
+@media screen and (min-width: 1024px) {
+    .gridEntry:nth-child(2) {
+        grid-column: 1 / span 2; /* Ensure the entry spans the first two columns */
+        width: calc(var(--cardWidth) + 50%); /* Make entry as wide as two smaller entries */
+
+        .entryImage {
+            width: calc(100% - var(--cardOffset)); /* change width and height to cover the whole card, minus offsets */
+            height: calc(100% - var(--cardOffset));
+
+            & img {
+                width: calc(100% - var(--cardOffset)); /* changing width and height again */
+                height: calc(100% - var(--cardOffset));
+            }
+        }
+
+        .projectText {
+            background-color: white; /* establish background color for overlaid text */
+            border-radius: var(--cardRadius);
+            width: calc(var(--cardWidth) - var(--cardOffset));
+            margin-left: calc(100% - var(--cardWidth) + var(--cardOffset));
+        }
+    }
+}
+
+/* Additional breakpoint fixes */
+@media screen and (max-width: 1023px) {
+    .gridEntry {
+        width: calc(100% - 40px);
+    }
+
+    .header {
+        width: calc(100% - 40px);
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .gridEntry {
+        min-width: 220px;
+    }
+}
+
