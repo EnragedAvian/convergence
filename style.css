@@ -25,6 +25,7 @@ p {
 body {
     margin: 0;
     min-height: 100vh;
+    min-height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
 }
@@ -94,7 +95,6 @@ body {
     & a {
         font-family: "DIN2014WebBold";
         text-decoration: none;
-        font-size: 24;
         padding-top: 10px;
         padding-bottom: 8px;
         padding-left: 16px;

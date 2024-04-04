@@ -50,9 +50,9 @@
         font-size: 2.5em !important;
     }
 
-    article {
+    /*article {
         padding-top: 0px !important;
-    }
+    }*/
 }
 
 /* Small size (Large mobile devices and small tablets) 
@@ -89,7 +89,7 @@
         display: block;
         margin: auto; /* center in div */
         /* Photo formatting to ensure aspect ratio and image fitment */
-        aspect-ratio: 5 / 3;
+        max-height: 70vh;
         justify-self: center;
         object-fit: cover;
         z-index: 3;
@@ -426,7 +426,7 @@ article {
         & img {
             object-fit: cover;
             max-width: 100%;
-            max-height: 100%;
+            max-height: 80vh;
             display: flex;
             margin: auto;
             border-radius: var(--primaryBorderRadius);

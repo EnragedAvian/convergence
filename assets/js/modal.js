@@ -1,18 +1,20 @@
 // JS adapted from https://dev.to/salehmubashar/create-an-image-modal-with-javascript-2lf3
 
-const images = document.querySelectorAll("img.clickable");
 let imgSrc;
 let imgAlt;
 // get images src onclick
-images.forEach((img) => {
-    img.addEventListener("click", (e) => {
-        imgSrc = e.target.src;
-        imgAlt = e.target.alt;
-        //console.log(imgSrc);
-        //run modal function
-        imgModal(imgSrc, imgAlt);
+window.addEventListener("load", function() {
+    const images = document.querySelectorAll("img.clickable");
+    images.forEach((img) => {
+        img.addEventListener("click", (e) => {
+            imgSrc = e.target.src;
+            imgAlt = e.target.alt;
+            //console.log(imgSrc);
+            //run modal function
+            imgModal(imgSrc, imgAlt);
+        });
     });
-});
+}, false);
 //creating the modal
 let imgModal = (src, alt) => {
     const modal = document.createElement("div");
